@@ -1,7 +1,7 @@
 class CreateComplexityJobs < ActiveRecord::Migration[8.0]
   def change
     create_table :complexity_jobs do |t|
-      t.integer :status
+      t.integer :status, null: false
       t.jsonb :words
       t.jsonb :result
       t.string :error
