@@ -15,6 +15,10 @@ class ComplexityJob < ApplicationRecord
 
   validate :status, presence: true
 
+  def done!(data)
+    update!(status: :done, result: data)
+  end
+
   def fail!(error)
     update!(status: :failed, error: error.message)
   end
