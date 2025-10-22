@@ -16,10 +16,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_22_103419) do
 
   create_table "complexity_jobs", force: :cascade do |t|
     t.integer "status", null: false
-    t.jsonb "words"
+    t.jsonb "words", null: false
     t.jsonb "result"
-    t.string "error"
-    t.string "text"
+    t.text "error"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

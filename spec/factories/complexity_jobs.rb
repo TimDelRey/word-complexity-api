@@ -3,11 +3,10 @@
 # Table name: complexity_jobs
 #
 #  id         :bigint           not null, primary key
-#  error      :string
+#  error      :text
 #  result     :jsonb
 #  status     :integer          not null
-#  text       :string
-#  words      :jsonb
+#  words      :jsonb            not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
