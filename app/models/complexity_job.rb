@@ -1,0 +1,2 @@
+class ComplexityJob < ApplicationRecord
+end
