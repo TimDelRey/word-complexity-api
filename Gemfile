@@ -39,7 +39,7 @@ gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
-# 
+#
 gem "sidekiq"
 gem "redis"
 gem "faraday"
@@ -60,7 +60,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'webmock'
-  
 end
 
 group :development do
