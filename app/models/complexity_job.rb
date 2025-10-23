@@ -14,6 +14,19 @@ class ComplexityJob < ApplicationRecord
   enum :status, { pending: 0, in_progress: 1, done: 2, failed: 3 }, default: :pending
 
   validates :status, presence: true
+  validate :words_must_be_array_of_strings
+
+  before_validation :normalize_words
+
+  def normalize_words
+    self.words = Array(words).map { |w| w.to_s.strip } if words.present?
+  end
+
+  def words_must_be_array_of_strings
+    unless words.is_a?(Array) && words.all? { |w| w.is_a?(String) }
+      errors.add(:words, "must be array of strings")
+    end
+  end
 
   def done!(data)
     update!(status: :done, result: data)
@@ -21,6 +34,9 @@ class ComplexityJob < ApplicationRecord
 
   def fail!(error)
     message = error.is_a?(Exception) ? error.message : error.to_s
-    update!(status: :failed, error: message)
+    update!(
+      status: :failed,
+      error: [self.error, message].compact.join("\n")
+    )
   end
 end
