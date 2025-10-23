@@ -24,4 +24,3 @@ class ComplexityJob < ApplicationRecord
     update!(status: :failed, error: message)
   end
 end
-

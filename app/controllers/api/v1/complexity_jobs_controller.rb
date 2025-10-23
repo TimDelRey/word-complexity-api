@@ -2,6 +2,12 @@ module Api
   module V1
     class ComplexityJobsController < ActionController::API
       def create
+        words = request.request_parameters
+        job = ComplexityJob.create(words: { words })
+        # джоба в сайдкике
+
+
+        return json: { job_id: job.id }
       end
 
       def show
