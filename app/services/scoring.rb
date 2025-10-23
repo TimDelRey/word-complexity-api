@@ -3,23 +3,21 @@ class Scoring
 
   def initialize(result_http_struct)
     @result = result_http_struct
-    @definitions = 0.0
-    @synonyms = 0.0
-    @antonyms = 0.0
   end
 
   def call
     return 0 unless @result.success? && @result.data.any?
+    definitions, synonyms, antonyms = 0.0, 0.0, 0.0
 
     @result.data.each do |word|
       d, s, a = calculate_score(word)
-      @definitions += d
-      @synonyms += s
-      @antonyms += a
+      definitions += d
+      synonyms += s
+      antonyms += a
     end
-    score = @definitions != 0 ? (@synonyms + @antonyms) / @definitions : 0
+
+    score = definitions != 0 ? (synonyms + antonyms) / definitions : 0
     score.round(1)
-    # return @definitions, @synonyms, @antonyms
   end
 
   private
@@ -44,6 +42,6 @@ class Scoring
       a_score += meaning_antonyms.size
     end
 
-    return d_score, s_score, a_score
+    [d_score, s_score, a_score]
   end
 end
