@@ -13,13 +13,15 @@
 class ComplexityJob < ApplicationRecord
   enum :status, { pending: 0, in_progress: 1, done: 2, failed: 3 }, default: :pending
 
-  validate :status, presence: true
+  validates :status, presence: true
 
   def done!(data)
     update!(status: :done, result: data)
   end
 
   def fail!(error)
-    update!(status: :failed, error: error.message)
+    message = error.is_a?(Exception) ? error.message : error.to_s
+    update!(status: :failed, error: message)
   end
 end
+
