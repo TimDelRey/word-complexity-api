@@ -3,10 +3,11 @@ module Api
     class ComplexityJobsController < ActionController::API
       def create
         words = request.request_parameters
-        job = ComplexityJob.create(words: { words })
-        # джоба в сайдкике
-
-
+        job = ComplexityJob.create(words: params[:words])
+        job.words.each do |word|
+          # джоба в сайдкике
+        end
+        job.update(status: "in_progress")
         return json: { job_id: job.id }
       end
 

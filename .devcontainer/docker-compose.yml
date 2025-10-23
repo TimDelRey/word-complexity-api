@@ -1,6 +1,22 @@
 version: '3'
 
 services:
+  redis:
+    image: redis:7
+    container_name: word-complexity-api-redis
+    ports:
+      - '6379:6379'
+  sidekiq:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    working_dir: /workspaces
+    volumes:
+      - ..:/workspaces:cached
+      - bundle_cache:/usr/local/bundle
+      - ~/.ssh:/root/.ssh:ro
+
   app:
     build:
       context: ..
@@ -48,3 +64,4 @@ services:
 
 volumes:
   postgres-data:
+  bundle_cache:
