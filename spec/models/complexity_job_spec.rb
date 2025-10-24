@@ -64,7 +64,7 @@ RSpec.describe ComplexityJob, type: :model do
     context 'when job get done' do
       it 'job status changed to done and result is saved' do
         expect(job.status).to eq("pending")
-        job.done!({ "some string":2 })
+        job.done!({ "some string": 2 })
         expect(job.status).to eq("done")
         expect(job.result).to eq({ "some string" => 2 })
       end
