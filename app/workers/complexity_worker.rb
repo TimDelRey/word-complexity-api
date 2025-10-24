@@ -18,6 +18,6 @@ class ComplexityWorker
       end
     end
 
-    job.done!(result)
+    job.done!(result) unless job.failed?
   end
 end

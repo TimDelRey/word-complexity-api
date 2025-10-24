@@ -15,19 +15,12 @@ class ComplexityJob < ApplicationRecord
 
   validates :status, presence: true
   validates :words, presence: true
-  # validate :words_must_be_array_of_strings
 
   before_validation :normalize_words
 
   def normalize_words
     self.words = Array(words).map { |w| w.to_s.strip } if words.present?
   end
-
-  # def words_must_be_array_of_strings
-  #   unless words.is_a?(Array) && words.all? { |w| w.is_a?(String) }
-  #     errors.add(:words, "must be array of strings")
-  #   end
-  # end
 
   def done!(data)
     update!(status: :done, result: data)
