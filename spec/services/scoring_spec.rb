@@ -7,8 +7,6 @@ RSpec.describe Scoring, type: :service do
   let(:zero_definitions_data) { JSON.parse(File.read(Rails.root.join("spec/fixtures/zero_definitions.json"))) }
   let(:zero_syn_ant_data) { JSON.parse(File.read(Rails.root.join("spec/fixtures/zero_syn_ant.json"))) }
 
-
-
   describe '#call' do
     context 'when definitions, synonyms, antonyms exist' do
       let(:result_struct) do
