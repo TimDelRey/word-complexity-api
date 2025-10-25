@@ -12,10 +12,9 @@
 #
 FactoryBot.define do
   factory :complexity_job do
-    status { 1 }
-    words { "" }
+    status { 0 }
+    words { ["happy", "joyful", "sad", "angry"] }
     result { "" }
-    error { "MyString" }
-    text { "MyString" }
+    error { "" }
   end
 end
