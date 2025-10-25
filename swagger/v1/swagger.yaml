@@ -1,0 +1,86 @@
+openapi: 3.0.1
+info:
+  title: Complexity Jobs API
+  version: "v1"
+  description: API for creating and checking complexity words
+servers:
+  - url: http://localhost:3000/api/v1
+paths:
+  /complexity_jobs:
+    post:
+      summary: Create job
+      description: Create new job to calculate word or array of words
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+              example: ["happy", "joyful", "sad", "angry"]
+      responses:
+        '200':
+          description: Job is created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job_id:
+                    type: integer
+        '400':
+          description: Empty array in request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example: {"job_id": null}
+        '422':
+          description: Error creating job (empty body)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example: {"error": "Body is empty"}
+  /complexity_jobs/{job_id}:
+    get:
+      summary: Get job
+      description: Return job's status and result
+      parameters:
+        - in: path
+          name: job_id
+          schema:
+            type: integer
+          required: true
+          description: ID of the job
+      responses:
+        '200':
+          description: Job's status and result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [pending, in_progress, done, failed]
+                  result:
+                    type: object
+                example: { "status": "done", "result": { "sad": 1.8, "angry": 4.0, "happy": 3.0, "joyful": 0.0 } }
+        '404':
+          description: Job with this ID not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example: {"error": "Try another ID"}
