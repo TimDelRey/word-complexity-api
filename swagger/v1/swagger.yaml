@@ -29,7 +29,7 @@ paths:
                 properties:
                   job_id:
                     type: integer
-        '401':
+        '400':
           description: Empty array in request body
           content:
             application/json:
@@ -37,7 +37,8 @@ paths:
                 type: object
                 properties:
                   error:
-                    type: nil
+                    type: string
+                example: {"job_id": null}
         '422':
           description: Error creating job (empty body)
           content:
@@ -47,6 +48,7 @@ paths:
                 properties:
                   error:
                     type: string
+                example: {"error": "Body is empty"}
   /complexity_jobs/{job_id}:
     get:
       summary: Get job
@@ -81,3 +83,4 @@ paths:
                 properties:
                   error:
                     type: string
+                example: {"error": "Try another ID"}
